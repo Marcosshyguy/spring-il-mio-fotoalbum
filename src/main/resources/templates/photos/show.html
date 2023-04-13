@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block th:replace="~{fragments/resources :: style}"></th:block>
+    <title>Foto</title>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('', '', false)}"></nav>
+    <div class="container" th:object="${pic}">
+        <h2 class="text-center">Here it is your majestic photo</h2>
+        <h2 th:text="*{title}" class="text-center"></h2>
+
+        <p th:unless="${pic.description == ''}" th:text="*{description}"></p>
+        <p th:if="${pic.description == ''}" >Description not available</p>
+
+        <img th:src="*{url}">
+    </div>
+</body>
+</html>
