@@ -8,30 +8,29 @@ import jakarta.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@Table(name = "photos")
-public class Photo {
-
+@Table(name = "pics")
+public class Pic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    @Size(min = 5, max = 100, message = "The title must be between 5 and 100 characters")
+    @Column(nullable = false)
+    @Size(min = 4, max = 100, message = "The type must be between 4 and 100 characters")
     private String title;
 
     @Lob
-    @Column(nullable = true)
     private String description;
 
     @Lob
-    @NotBlank
-    private String imageUrl;
+    @Column(nullable = false)
+    private String url;
 
     @AssertTrue
     private boolean visible;
 
     @ManyToMany
-    @JoinTable(name = "photo_category" , joinColumns = @JoinColumn(name = "photo_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "pic_category" , joinColumns = @JoinColumn(name = "pic_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories;
 
     public Long getId() {
@@ -58,12 +57,12 @@ public class Photo {
         this.description = description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public boolean isVisible() {
