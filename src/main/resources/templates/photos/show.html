@@ -17,6 +17,13 @@
         <p th:unless="${pic.description == ''}" th:text="*{description}"></p>
         <p th:if="${pic.description == ''}" >Description not available</p>
 
+        <th:block th:if="${pic.categories}">
+            <ul th:each="category : ${pic.categories}">
+                <li th:text="${category.type}"></li>
+            </ul>
+        </th:block>
+        <p th:unless="${pic.categories}">No categories related to this photo</p>
+
         <img th:src="*{url}">
     </div>
 </body>
