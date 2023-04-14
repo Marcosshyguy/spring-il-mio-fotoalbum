@@ -2,24 +2,21 @@
 <!--navbar-->
 <nav th:fragment="navbar(current,keyword,showsearch)" class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand">Pizza per Tutti <i class="fa-solid fa-pizza-slice fa-spin fa-spin-reverse"></i></a>
+    <a class="navbar-brand">Foto</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" th:classappend="${current == 'pizzas'} ? 'active' : ''" aria-current="page" th:href="@{/pizzas}">Pizze</a>
+          <a class="nav-link" th:classappend="${current == 'pics'} ? 'active' : ''" aria-current="page" th:href="@{/photos}">Photo</a>
         </li>
-        <li  class="nav-item">
-          <a class="nav-link" th:classappend="${current == 'addPizzas'} ? 'active' : ''" th:href="@{/pizzas/create}">Aggiungi pizza</a>
-        </li>
-        <li  class="nav-item">
-          <a class="nav-link" th:classappend="${current == 'ingredients'} ? 'active' : ''" th:href="@{/ingredients}">Ingredienti</a>
+        <li class="nav-item">
+          <a class="nav-link" th:classappend="${current == 'pics'} ? 'active' : ''" aria-current="page" th:href="@{/photos/create}">Add photo</a>
         </li>
       </ul>
-      <form th:if="${showsearch == true}" class="d-flex" role="search" method="get" th:action="@{/pizzas}" >
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="type" th:value="${keyword}">
+      <form th:if="${showsearch == true}" class="d-flex" role="search" method="get" th:action="@{/photos}" >
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="input" th:value="${keyword}">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
     </div>

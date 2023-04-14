@@ -16,28 +16,34 @@
             <tr>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
+                <th scope="col">Visibility</th>
                 <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody class="table-group-divider">
-            <tr th:each="pic : ${pics}" th:object="${pic}">
+            <tr th:each="pic : ${pics}" th:object="${pic}" >
                 <td class="align-middle" th:text="*{title}"></td>
                 <td class="align-middle">
                     <span th:unless="${pic.description == ''}" th:text="*{description}"></span>
                     <span th:if="${pic.description == ''}" >----</span>
                 </td>
 
+                <td class="align-middle " >
+                    <i th:if="*{visible}" class="fa-solid fa-eye"></i>
+                    <i th:unless="*{visible}" class="fa-solid fa-eye-slash"></i>
+                </td>
 
                 <!-- actions -->
                 <td>
-<!--                    <a th:href="@{|pizzas/${pizza.pizzaId}|}" class="btn btn-success align-middle"><i class="fa-solid fa-pizza-slice"></i></a>-->
-<!--                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{|pizzas/edit/${pizza.pizzaId}|}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pen"></i></a>-->
+                    <a th:href="@{|photos/${pic.id}|}" class="btn btn-success align-middle"><i class="fa-solid fa-image"></i></a>
+                    <a th:href="@{photos/edit/{id}(id=*{id})}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pen"></i></a>
 
-<!--                    &lt;!&ndash; add delete button&ndash;&gt;-->
-<!--                    <form id="delete-pizza" sec:authorize="hasAuthority('ADMIN')" th:method="delete" th:action="@{/pizzas/delete/{id}(id=${pizza.pizzaId})}" class="d-inline">-->
-<!--                        <button type="submit" th:value="${pizza.pizzaId}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>-->
-<!--                    </form>-->
+                    <!-- add delete button-->
+                    <form id="delete-pizza"  th:method="delete" th:action="@{/photos/delete/{id}(id=*{id})}" class="d-inline">
+                        <button type="submit" th:value="*{id}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
+                    </form>
                 </td>
+
             </tr>
             </tbody>
         </table>

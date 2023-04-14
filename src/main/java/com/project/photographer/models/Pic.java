@@ -26,7 +26,6 @@ public class Pic {
     @Column(nullable = false)
     private String url;
 
-    @AssertTrue
     private boolean visible;
 
     @ManyToMany
@@ -65,7 +64,7 @@ public class Pic {
         this.url = url;
     }
 
-    public boolean isVisible() {
+    public boolean getVisible() {
         return visible;
     }
 
