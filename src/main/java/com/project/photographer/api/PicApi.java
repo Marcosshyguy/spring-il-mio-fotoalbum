@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping("/api/photos")
 public class PicApi {
@@ -23,13 +23,13 @@ public class PicApi {
 
     @GetMapping
     public List<Pic> getPhotos(@RequestParam(name = "input")Optional<String> keyword){
-        List<Pic> pics;
+
 
         if (keyword.isPresent()) {
-           return pics = picService.getFilteredPics(keyword.get());
+           return  picService.getFilteredPics(keyword.get());
 
         }else{
-            return pics = picService.getAllPics();
+            return  picService.getAllPics();
         }
 
     }

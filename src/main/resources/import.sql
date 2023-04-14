@@ -14,6 +14,15 @@ INSERT INTO db_photographer.category_pic (pic_id, category_id) VALUES(2, 4);
 INSERT INTO db_photographer.category_pic (pic_id, category_id) VALUES(2, 6);
 INSERT INTO db_photographer.category_pic (pic_id, category_id) VALUES(3, 1);
 
+INSERT INTO db_photographer.roles (name) VALUES('ADMIN');
+INSERT INTO db_photographer.roles (name) VALUES('GUEST');
+
+INSERT INTO db_photographer.users (email, password, username) VALUES('thegmarco@yahoo.it', '{noop}abcd', 'marco');
+INSERT INTO db_photographer.users (email, password, username) VALUES('thepmarco@yahoo.it', '{noop}1234', 'ferrari');
+
+
+
+
 
 
 

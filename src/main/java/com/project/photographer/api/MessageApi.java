@@ -8,17 +8,14 @@ import com.project.photographer.services.MessageService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@Controller
+@RestController
 @CrossOrigin
-@RequestMapping("/api/photos")
+@RequestMapping("/api/messages")
 public class MessageApi {
     @Autowired
     private MessageService messageService;
