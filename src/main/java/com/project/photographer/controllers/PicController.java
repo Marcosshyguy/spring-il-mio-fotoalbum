@@ -24,8 +24,6 @@ public class PicController {
     PicService picService;
     @Autowired
     CategoryService categoryService;
-//    @Autowired
-//    PicRepo picRepo;
 
     @GetMapping
     public String getPhotos(Model model, @RequestParam(name = "input")Optional<String> keyword){

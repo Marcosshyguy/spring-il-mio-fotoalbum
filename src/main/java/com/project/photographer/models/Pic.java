@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.Set;
 
@@ -28,9 +30,8 @@ public class Pic {
     private String url;
 
     private boolean visible;
-
     @ManyToMany
-    @JoinTable(name = "pic_category" , joinColumns = @JoinColumn(name = "pic_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @JoinTable(name = "category_pic", joinColumns = @JoinColumn(name = "pic_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories;
 
     public Long getId() {
