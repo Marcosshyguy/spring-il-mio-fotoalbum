@@ -12,19 +12,40 @@
     <nav th:replace="~{fragments/navbar :: navbar('', '', false)}"></nav>
     <div class="container">
         <form id="update-photo-form" th:method="put" th:object="${picToUpdate}" th:action="@{/photos/edit/{id}(id=${picToUpdate.id})}">
+            <!--title-->
             <div class="mb-3">
                 <label for="title" class="form-label">Add a new title</label>
-                <input type="text" class="form-control" id="title" aria-describedby="emailHelp" th:field="*{title}">
+                <input type="text" class="form-control" id="title" aria-describedby="emailHelp" th:field="*{title}" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('title')}">[[${err}]]</li>
+                    </ul>
+                </div>
             </div>
+
+            <!--description-->
             <div class="mb-3">
                 <label for="description" class="form-label">Add description</label>
                 <textarea class="form-control" id="description" rows="4" th:field="*{description}"></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="url" class="form-label">Paste the image's url</label>
-                <input type="text" class="form-control" id="url" aria-describedby="emailHelp" th:field="*{url}">
+                <div th:if="${#fields.hasErrors('description')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('description')}">[[${err}]]</li>
+                    </ul>
+                </div>
             </div>
 
+            <!--photo url-->
+            <div class="mb-3">
+                <label for="url" class="form-label">Paste the image's url</label>
+                <input type="text" class="form-control" id="url" aria-describedby="emailHelp" th:field="*{url}" th:errorClass="is-invalid">
+                <div th:if="${#fields.hasErrors('url')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('url')}">[[${err}]]</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--visibility-->
             <p>Do you want to show your photo? (you can always change it later)</p>
             <div class="form-check">
                 <input class="form-check-input" type="radio" th:field="*{Visible}" value="0" id="visibility-no" name="visibility">
@@ -39,12 +60,14 @@
                 </label>
             </div>
 
+            <!--photo categories-->
             <p>Add which type of category your photo belongs to</p>
-            <div class="form-check" th:each="cat : ${categories}">
+            <div class="form-check mb-3" th:each="cat : ${categories}">
                 <input class="form-check-input" type="checkbox" th:field="*{categories}" th:value="${cat.id}" th:id="|category_${cat.id}|">
                 <label class="form-check-label" th:for="|category_${cat.id}|" th:text="${cat.type}"></label>
             </div>
-            <button type="submit">Update</button>
+
+            <button class="btn btn-success" type="submit">Update</button>
         </form>
     </div>
 </body>

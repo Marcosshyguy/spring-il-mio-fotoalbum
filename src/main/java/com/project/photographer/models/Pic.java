@@ -14,9 +14,9 @@ public class Pic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "This field must not be empty")
     @Column(nullable = false)
-    @Size(min = 4, max = 100, message = "The type must be between 4 and 100 characters")
+    @Size(min = 4, max = 100, message = "The title must be between 4 and 100 characters")
     private String title;
 
     @Lob
@@ -24,6 +24,7 @@ public class Pic {
 
     @Lob
     @Column(nullable = false)
+    @NotBlank(message = "This field must not be empty")
     private String url;
 
     private boolean visible;

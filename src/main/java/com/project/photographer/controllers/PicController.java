@@ -84,7 +84,7 @@ public class PicController {
     }
 
     @PutMapping("/edit/{id}")
-    public String update(@PathVariable Long id, @ModelAttribute("picToUpdate") Pic updatedData, BindingResult bindingResult, Model model){
+    public String update(@PathVariable Long id,@Valid @ModelAttribute("picToUpdate") Pic updatedData, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             model.addAttribute("categories", categoryService.getAllCategory());
             return "/photos/edit";

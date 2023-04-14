@@ -12,7 +12,7 @@
           <a class="nav-link" th:classappend="${current == 'pics'} ? 'active' : ''" aria-current="page" th:href="@{/photos}">Photo</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" th:classappend="${current == 'pics'} ? 'active' : ''" aria-current="page" th:href="@{/photos/create}">Add photo</a>
+          <a class="nav-link" th:classappend="${current == 'add'} ? 'active' : ''" aria-current="page" th:href="@{/photos/create}">Add photo</a>
         </li>
       </ul>
       <form th:if="${showsearch == true}" class="d-flex" role="search" method="get" th:action="@{/photos}" >
