@@ -59,6 +59,7 @@ function PostForm() {
           id="email"
           aria-describedby="emailHelp"
           onChange={messageEmailhandler}
+          value={dataToSend.email}
         />
       </div>
 
@@ -72,6 +73,7 @@ function PostForm() {
           id="email"
           aria-describedby="emailHelp"
           onChange={messageTextHandler}
+          value={dataToSend.message}
         />
       </div>
 
