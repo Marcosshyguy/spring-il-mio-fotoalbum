@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block th:replace="~{fragments/resources :: style}"></th:block>
+    <title>Photo Library</title>
+</head>
+<body>
+<nav th:replace="~{fragments/navbar :: navbar('cat', '', false)}"></nav>
+<div class="container">
+    <div class="row">
+        <div class="col-6 ">
+            <h4 class="d-inline text-center">All the categories</h4>
+            <a th:if="${categoryToUpdate}" th:href="@{/categories}" class="btn btn-success"><i class="fa-solid fa-plus"></i></a>
+
+            <table class="table mt-3">
+                <tbody>
+                <tr th:each="category : ${cats}" th:object="${category}">
+                    <td class="text-center">
+                        <p th:text="*{type}" class="align-middle"></p>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{/categories(id=${category.id})}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pen"></i></a>
+
+                        <!-- add delete button-->
+                        <form id="delete-pizza"  th:method="delete" th:action="@{|/categories/*{id}|}" class="d-inline">
+                            <button type="submit" th:value="*{id}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--create form-->
+        <div class="col-6 text-center" th:if="${newCategory}">
+            <h4>Add category</h4>
+            <form id="category-create-form" method="post" th:object="${newCategory}" th:action="@{/categories}">
+                <!--  name  -->
+                <label class="form-label" for="type" >Category name</label>
+                <input type="text" id="type" class="form-control" th:field="*{type}" >
+                <div th:if="${#fields.hasErrors('type')}" class="invalid-feedback">
+                    <ul>
+                        <li th:each="err : ${#fields.errors('type')}">[[${err}]]</li>
+                    </ul>
+                </div>
+                <button type="submit" class="btn btn-danger mt-3">Add</button>
+            </form>
+        </div>
+        <!--edit form-->
+<!--        th:errorClass="is-invalid"-->
+        <div class="col-6 text-center" th:if="${categoryToUpdate}">
+            <h4>Update category</h4>
+            <form id="category-edit-form" th:object="${categoryToUpdate}"  th:action="@{|/categories/*{id}|}" th:method="put">
+
+                    <label for="name" class="form-label">Category name</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="name" th:field="*{type}" >
+                    <div th:if="${#fields.hasErrors('type')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('type')}">[[${err}]]</li>
+                        </ul>
+                    </div>
+                <button class="btn btn-danger mt-3" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
