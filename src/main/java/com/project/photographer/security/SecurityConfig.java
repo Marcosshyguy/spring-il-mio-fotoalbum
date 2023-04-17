@@ -22,8 +22,12 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests()
+                .requestMatchers("/", "/photos", "/photos/{id}").hasAnyAuthority("GUEST", "ADMIN")
+                .requestMatchers("/photos/create", "/photos/edit", "/photos/edit/**", "/photos/delete/**").hasAuthority("ADMIN")
+                .requestMatchers("/categories", "/categories/**").hasAuthority("ADMIN")
+                .requestMatchers("/messages", "/messages/delete/**").hasAuthority("ADMIN")
                 .requestMatchers("/api", "/api/**").permitAll()
-                .requestMatchers("/**").permitAll()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).hasAnyAuthority("GUEST", "ADMIN")
                 .and().formLogin().defaultSuccessUrl("/photos", true)
                 .and().logout()
                 .and().exceptionHandling();
