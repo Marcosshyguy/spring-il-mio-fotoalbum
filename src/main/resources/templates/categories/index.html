@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -13,6 +13,7 @@
 <div class="container">
     <div class="row">
         <div class="col-6 ">
+            <th:block th:if="${cats.size() > 0}">
             <h4 class="d-inline text-center">All the categories</h4>
             <a th:if="${categoryToUpdate}" th:href="@{/categories}" class="btn btn-success"><i class="fa-solid fa-plus"></i></a>
 
@@ -33,6 +34,10 @@
                 </tr>
                 </tbody>
             </table>
+            </th:block>
+            <th:block th:if="${cats.size() == 0}">
+                <h2 class="text-center">No categories found</h2>
+            </th:block>
         </div>
         <!--create form-->
         <div class="col-6 text-center" th:if="${newCategory}">

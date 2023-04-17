@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,34 +11,41 @@
 <body>
 <nav th:replace="~{fragments/navbar :: navbar('message', '', false)}"></nav>
 <div class="container">
-    <table class="table table-dark table-striped mt-3">
-        <thead>
-        <tr>
-            <th scope="col">From</th>
-            <th scope="col">Message</th>
-            <th scope="col">Created At</th>
-            <th scope="col">Delete</th>
-        </tr>
-        </thead>
-        <tbody class="table-group-divider">
-        <tr th:each="mes : ${messages}" th:object="${mes}" >
-            <td class="align-middle" th:text="*{email}"></td>
-            <td class="align-middle" th:text="*{message}">
-            </td>
-            <td class="align-middle" th:text="*{createdAt}">
-            </td>
+    <th:block th:if="${messages.size() > 0}">
+        <table class="table table-dark table-striped mt-3">
+            <thead>
+            <tr>
+                <th scope="col">From</th>
+                <th scope="col">Message</th>
+                <th scope="col">Created At</th>
+                <th scope="col">Delete</th>
+            </tr>
+            </thead>
+            <tbody class="table-group-divider">
+            <tr th:each="mes : ${messages}" th:object="${mes}" >
+                <td class="align-middle" th:text="*{email}"></td>
+                <td class="align-middle" th:text="*{message}">
+                </td>
+                <td class="align-middle" th:text="*{createdAt}">
+                </td>
 
-            <!-- actions -->
-            <td>
-                <!-- add delete button-->
-                <form id="delete-message"  th:method="delete" th:action="@{/messages/delete/{id}(id=*{id})}" class="d-inline">
-                    <button type="submit" th:value="*{id}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
-                </form>
-            </td>
+                <!-- actions -->
+                <td>
+                    <!-- add delete button-->
+                    <form id="delete-message"  th:method="delete" th:action="@{/messages/delete/{id}(id=*{id})}" class="d-inline">
+                        <button type="submit" th:value="*{id}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                </td>
 
-        </tr>
-        </tbody>
-    </table>
+            </tr>
+            </tbody>
+        </table>
+    </th:block>
+
+    <th:block th:if="${messages.size() == 0}">
+        <h2 class="text-center">No messages found</h2>
+    </th:block>
+
 </div>
 
 </body>

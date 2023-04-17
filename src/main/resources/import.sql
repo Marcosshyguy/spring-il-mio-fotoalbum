@@ -20,6 +20,10 @@ INSERT INTO db_photographer.roles (name) VALUES('GUEST');
 INSERT INTO db_photographer.users (email, password, username) VALUES('thegmarco@yahoo.it', '{noop}abcd', 'marco');
 INSERT INTO db_photographer.users (email, password, username) VALUES('thepmarco@yahoo.it', '{noop}1234', 'ferrari');
 
+INSERT INTO db_photographer.user_role (user_id, role_id) VALUES(1, 1);
+INSERT INTO db_photographer.user_role (user_id, role_id) VALUES(2, 2);
+
+
 
 
 

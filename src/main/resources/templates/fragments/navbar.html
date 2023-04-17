@@ -1,6 +1,6 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
 <!--navbar-->
-<nav th:fragment="navbar(current,keyword,showsearch)" class="navbar navbar-expand-lg bg-light">
+<nav th:fragment="navbar(current,keyword,showsearch)" class="navbar navbar-expand-lg bg-light" >
   <div class="container-fluid">
     <a class="navbar-brand">Foto</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -11,13 +11,13 @@
         <li class="nav-item">
           <a class="nav-link" th:classappend="${current == 'pics'} ? 'active' : ''" aria-current="page" th:href="@{/photos}">Photo</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
           <a class="nav-link" th:classappend="${current == 'add'} ? 'active' : ''" aria-current="page" th:href="@{/photos/create}">Add photo</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
           <a class="nav-link" th:classappend="${current == 'cat'} ? 'active' : ''" aria-current="page" th:href="@{/categories}">Categories</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" sec:authorize="hasAuthority('ADMIN')">
           <a class="nav-link" th:classappend="${current == 'message'} ? 'active' : ''" aria-current="page" th:href="@{/messages}">Messages</a>
         </li>
       </ul>
@@ -28,6 +28,7 @@
     </div>
     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       <li class="nav-item">
+<!--        <span sec:authentication="name"></span>-->
         <a class="nav-link" aria-current="page" th:href="@{/logout}"><i class="fa-solid fa-right-from-bracket"></i></a>
       </li>
     </ul>

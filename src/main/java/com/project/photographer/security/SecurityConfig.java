@@ -22,8 +22,8 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests()
-                .requestMatchers("/", "/photos", "/photos/{id}").hasAnyAuthority("GUEST", "ADMIN")
                 .requestMatchers("/photos/create", "/photos/edit", "/photos/edit/**", "/photos/delete/**").hasAuthority("ADMIN")
+                .requestMatchers("/", "/photos", "/photos/{id}").hasAnyAuthority("GUEST", "ADMIN")
                 .requestMatchers("/categories", "/categories/**").hasAuthority("ADMIN")
                 .requestMatchers("/messages", "/messages/delete/**").hasAuthority("ADMIN")
                 .requestMatchers("/api", "/api/**").permitAll()
@@ -34,5 +34,4 @@ public class SecurityConfig {
         http.csrf().disable();
         return http.build();
     }
-
 }
