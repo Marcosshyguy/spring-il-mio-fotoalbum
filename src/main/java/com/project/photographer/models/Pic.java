@@ -34,6 +34,9 @@ public class Pic {
     @JoinTable(name = "category_pic", joinColumns = @JoinColumn(name = "pic_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private Image cover;
+
     public Long getId() {
         return id;
     }
@@ -72,6 +75,14 @@ public class Pic {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public Image getCover() {
+        return cover;
+    }
+
+    public void setCover(Image cover) {
+        this.cover = cover;
     }
 
     public Set<Category> getCategories() {

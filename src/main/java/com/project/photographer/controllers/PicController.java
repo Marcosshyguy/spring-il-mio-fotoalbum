@@ -1,5 +1,6 @@
 package com.project.photographer.controllers;
 
+import com.project.photographer.models.ImageForm;
 import com.project.photographer.models.Pic;
 import com.project.photographer.repositories.CategoryRepo;
 import com.project.photographer.repositories.PicRepo;
@@ -14,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,17 +60,23 @@ public class PicController {
 
         model.addAttribute("newPic", new Pic());
         model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("imageForm" , new ImageForm());
 
         return "/photos/create";
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("newPic") Pic createdData, BindingResult bindingResult, Model model){
+    public String store(@Valid @ModelAttribute("newPic") Pic createdData, @Valid @ModelAttribute("imageForm") ImageForm imageForm, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             model.addAttribute("categories", categoryService.getAllCategory());
+            model.addAttribute("imageForm" , new ImageForm());
             return "/photos/create";
         }
-        picService.createPic(createdData);
+        try {
+            picService.createPic(createdData, imageForm);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return "redirect:/photos";
     }
 
@@ -78,21 +86,24 @@ public class PicController {
 
         model.addAttribute("picToUpdate", picService.findPic(id).get());
         model.addAttribute("categories", categoryService.getAllCategory());
+        model.addAttribute("imageForm" , new ImageForm());
         return "/photos/edit";
     }
 
     @PutMapping("/edit/{id}")
-    public String update(@PathVariable Long id,@Valid @ModelAttribute("picToUpdate") Pic updatedData, BindingResult bindingResult, Model model){
+    public String update(@PathVariable Long id,@Valid @ModelAttribute("picToUpdate") Pic updatedData, @ModelAttribute("imageForm") ImageForm imageForm, BindingResult bindingResult, Model model){
         if (bindingResult.hasErrors()){
             model.addAttribute("categories", categoryService.getAllCategory());
+            model.addAttribute("imageForm" , new ImageForm());
             return "/photos/edit";
         }
-
         try {
-            picService.updatePic(updatedData, id);
+            picService.updatePic(updatedData, id, imageForm);
             return "redirect:/photos";
         } catch (ResponseStatusException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Photo with id: {" + id + "} not found");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
