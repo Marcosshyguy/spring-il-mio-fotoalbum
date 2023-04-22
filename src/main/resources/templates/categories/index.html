@@ -25,12 +25,12 @@
                     </td>
                     <td class="text-center">
                         <a th:href="@{/categories(id=${category.id})}" class="btn btn-secondary align-middle"><i class="fa-solid fa-pen"></i></a>
-
-                        <!-- add delete button-->
-                        <form id="delete-pizza"  th:method="delete" th:action="@{|/categories/*{id}|}" class="d-inline">
-                            <button type="submit" th:value="*{id}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
-                        </form>
+                        <button type="button" class="btn btn-danger align-middle" data-bs-toggle="modal" data-bs-target="#deleteCategory">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
                     </td>
+                    <!-- Modal -->
+                    <div th:replace="~{fragments/delete-modal :: deleteModal(deleteCategory, delete-category,  @{|/categories/*{id}|})}"></div>
                 </tr>
                 </tbody>
             </table>

@@ -1,13 +1,15 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <!--navbar-->
 <nav th:fragment="navbar(current,keyword,showsearch)" class="navbar navbar-expand-lg bg-light" >
   <div class="container-fluid">
-    <a class="navbar-brand">Foto</a>
+    <a class="navbar-brand" href="">
+      <img src="/image/photo-logo-2.jpg" alt="photo-library-logo" width="60" height="60">
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav justify-content-center">
         <li class="nav-item">
           <a class="nav-link" th:classappend="${current == 'pics'} ? 'active' : ''" aria-current="page" th:href="@{/photos}">Photo</a>
         </li>

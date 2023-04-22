@@ -10,7 +10,7 @@
 </head>
 <body>
 <nav th:replace="~{fragments/navbar :: navbar('', '', false)}"></nav>
-    <div class="container" th:object="${pic}">
+    <div class="container" th:object="${pic}" >
         <h2 class="text-center">Here it is your majestic photo</h2>
         <h2 th:text="*{title}" class="text-center"></h2>
 
@@ -24,7 +24,12 @@
         </th:block>
         <p th:unless="${pic.categories}">No categories related to this photo</p>
 
-        <img th:src="*{url}">
+        <th:block th:if="${pic.cover == null || pic.cover.content == null}">
+            <img th:src="${pic.url}" class="img-fluid" th:alt="${pic.title}">
+        </th:block>
+        <th:block th:unless="${pic.cover == null || pic.cover.content == null}">
+            <img th:src="@{|/images/${pic.cover.id}|}" class="img-fluid" th:alt="${pic.title}">
+        </th:block>
     </div>
 </body>
 </html>

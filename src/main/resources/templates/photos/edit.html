@@ -11,7 +11,8 @@
 <body>
     <nav th:replace="~{fragments/navbar :: navbar('', '', false)}"></nav>
     <div class="container">
-        <form id="update-photo-form" th:method="put" th:object="${picToUpdate}" th:action="@{/photos/edit/{id}(id=${picToUpdate.id})}">
+        <form enctype="multipart/form-data" id="update-photo-form" th:action="@{/photos/edit/{id}(id=${picToUpdate.id})}" th:method="put"
+              th:object="${picToUpdate}">
             <!--title-->
             <div class="mb-3">
                 <label for="title" class="form-label">Add a new title</label>
@@ -34,7 +35,23 @@
                 </div>
             </div>
 
-            <!--photo url-->
+            <!--image file (Optional)-->
+            <div class="mb-3">
+                <th:block  th:unless="${picToUpdate.cover == null || picToUpdate.cover.content == null}">
+                <img th:src="@{|/images/${picToUpdate.cover.id}|}" class="img-thumbnail mb-2" th:alt="*{title}">
+                </th:block>
+                <th:block th:object="${imageForm}">
+                    <label for="cover" class="form-label">Choose an image(Optional)</label>
+                    <input class="form-control" id="cover" th:field="${imageForm.multipartFile}" type="file" th:errorClass="is-invalid">
+                    <div th:if="${#fields.hasErrors('multipartFile')}" class="invalid-feedback">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('multipartFile')}">[[${err}]]</li>
+                        </ul>
+                    </div>
+                </th:block>
+            </div>
+
+            <!--photo url(Mandatory)-->
             <div class="mb-3">
                 <label for="url" class="form-label">Paste the image's url</label>
                 <input type="text" class="form-control" id="url" aria-describedby="emailHelp" th:field="*{url}" th:errorClass="is-invalid">

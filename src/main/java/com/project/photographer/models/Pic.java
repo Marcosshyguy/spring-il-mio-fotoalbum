@@ -1,5 +1,6 @@
 package com.project.photographer.models;
 
+import com.project.photographer.annotations.ValidPicUrl;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotBlank;
@@ -27,6 +28,7 @@ public class Pic {
     @Lob
     @Column(nullable = false)
     @NotBlank(message = "This field must not be empty")
+    @ValidPicUrl
     private String url;
 
     private boolean visible;

@@ -35,8 +35,13 @@
                     <form id="delete-message"  th:method="delete" th:action="@{/messages/delete/{id}(id=*{id})}" class="d-inline">
                         <button type="submit" th:value="*{id}" class="btn btn-danger align-middle"><i class="fa-solid fa-trash"></i></button>
                     </form>
-                </td>
 
+                    <button type="button" class="btn btn-danger align-middle" data-bs-toggle="modal" data-bs-target="#deleteMessage">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </td>
+                <!-- Modal -->
+                <div th:replace="~{fragments/delete-modal :: deleteModal(deleteMessage, delete-message ,@{/messages/delete/{id}(id=*{id})})}"></div>
             </tr>
             </tbody>
         </table>

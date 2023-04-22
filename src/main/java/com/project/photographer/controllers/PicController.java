@@ -66,10 +66,9 @@ public class PicController {
     }
 
     @PostMapping("/create")
-    public String store(@Valid @ModelAttribute("newPic") Pic createdData, @Valid @ModelAttribute("imageForm") ImageForm imageForm, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
+    public String store(Model model , @Valid @ModelAttribute("newPic") Pic createdData, BindingResult picBindingResult, @Valid @ModelAttribute("imageForm") ImageForm imageForm, BindingResult imageBindingResult ){
+        if (picBindingResult.hasErrors() || imageBindingResult.hasErrors()){
             model.addAttribute("categories", categoryService.getAllCategory());
-            model.addAttribute("imageForm" , new ImageForm());
             return "/photos/create";
         }
         try {
@@ -91,10 +90,9 @@ public class PicController {
     }
 
     @PutMapping("/edit/{id}")
-    public String update(@PathVariable Long id,@Valid @ModelAttribute("picToUpdate") Pic updatedData, @ModelAttribute("imageForm") ImageForm imageForm, BindingResult bindingResult, Model model){
-        if (bindingResult.hasErrors()){
+    public String update( Model model, @PathVariable Long id, @ModelAttribute("picToUpdate") Pic updatedData, BindingResult picBindingResult ,@Valid @ModelAttribute("imageForm") ImageForm imageForm, BindingResult imageBindingResult){
+        if (picBindingResult.hasErrors() || imageBindingResult.hasErrors()){
             model.addAttribute("categories", categoryService.getAllCategory());
-            model.addAttribute("imageForm" , new ImageForm());
             return "/photos/edit";
         }
         try {
